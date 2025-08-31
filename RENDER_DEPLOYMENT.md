@@ -46,6 +46,9 @@ CLIENT_URL=https://your-client-service-name.onrender.com
 
 ## **Step 3: Update Client Configuration**
 
+### **Important: Asset Path Configuration**
+The client is now configured to use relative paths (`/`) instead of the GitHub Pages path (`/multiplayer_connect_4/`). This ensures assets load correctly on Render.
+
 ### **Option A: Environment Variable (Recommended)**
 1. **In Client Service**, add environment variable:
    ```bash
