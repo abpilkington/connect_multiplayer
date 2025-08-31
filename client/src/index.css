@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom component styles */
+.board-cell {
+  @apply w-20 h-20 bg-board-blue border-2 border-board-dark rounded-full shadow-inner flex items-center justify-center cursor-pointer transition-all duration-200;
+}
+
+.board-cell:hover {
+  @apply bg-blue-600 shadow-lg transform scale-105;
+}
+
+.board-cell.disabled {
+  @apply cursor-not-allowed opacity-50;
+}
+
+.board-cell.disabled:hover {
+  @apply transform-none scale-100 bg-board-blue shadow-inner;
+}
+
+.piece {
+  @apply w-16 h-16 rounded-full shadow-md;
+}
+
+.piece.red {
+  @apply bg-connect-red;
+}
+
+.piece.yellow {
+  @apply bg-connect-yellow;
+}
+
+.piece.empty {
+  @apply bg-gray-100 opacity-30;
+}
+
+.winning-piece {
+  @apply ring-4 ring-white ring-opacity-75 animate-pulse-soft;
+}
+
+/* Connect 4 Board Specific Styles */
+.connect4-board {
+  @apply bg-gradient-to-b from-blue-700 to-blue-800 rounded-2xl shadow-2xl border-4 border-blue-900;
+}
+
+.connect4-column-header {
+  @apply bg-gradient-to-b from-gray-50 to-gray-100 rounded-t-xl border-2 border-b-0 border-gray-300 shadow-sm;
+}
+
+.connect4-cell {
+  @apply w-20 h-20 rounded-full border-2 flex items-center justify-center cursor-pointer transition-all duration-200;
+}
+
+.connect4-cell:hover {
+  @apply scale-105 shadow-lg;
+}
+
+.connect4-cell.red {
+  @apply bg-red-500 border-red-600;
+}
+
+.connect4-cell.yellow {
+  @apply bg-yellow-500 border-yellow-600;
+}
+
+.connect4-cell.empty {
+  @apply bg-gray-100 border-gray-300;
+}
+
+.connect4-cell.disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.connect4-cell.disabled:hover {
+  @apply scale-100;
+}
+
+/* Animations */
+@keyframes drop {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  70% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.drop-animation {
+  animation: drop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+input:focus-visible {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
