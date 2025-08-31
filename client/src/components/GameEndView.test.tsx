@@ -210,8 +210,8 @@ describe('GameEndView', () => {
 
       renderGameEndView(room, player, gameEndData);
 
-      // Should have 42 cells (7x6)
-      const cells = document.querySelectorAll('.w-10.h-10');
+      // Should have 42 cells (7x6) - now using aspect-square class
+      const cells = document.querySelectorAll('[class*="aspect-square"]');
       expect(cells).toHaveLength(42);
     });
 
@@ -224,8 +224,8 @@ describe('GameEndView', () => {
 
       renderGameEndView(room, player, gameEndData);
 
-      // Should have 4 winning cells with green indicators
-      const winningIndicators = document.querySelectorAll('.w-3.h-3.bg-green-400');
+      // Should have 4 winning cells with green indicators - now using w-4 h-4
+      const winningIndicators = document.querySelectorAll('.w-4.h-4.bg-green-400');
       expect(winningIndicators).toHaveLength(4);
     });
 
@@ -276,8 +276,11 @@ describe('GameEndView', () => {
 
       renderGameEndView(room, currentPlayer, gameEndData);
 
-      expect(screen.getByText('Yellow Team')).toBeInTheDocument();
-      expect(screen.getByText('YellowPlayer')).toBeInTheDocument();
+      // Team headers now include emojis
+      expect(screen.getByText('🟡 Yellow Team')).toBeInTheDocument();
+      // Use getAllByText to handle multiple elements with same text
+      const yellowPlayerElements = screen.getAllByText('YellowPlayer');
+      expect(yellowPlayerElements.length).toBeGreaterThan(0);
     });
 
     it('should show trophy for winning team', () => {
@@ -345,9 +348,13 @@ describe('GameEndView', () => {
       expect(screen.getByText('#1')).toBeInTheDocument();
       expect(screen.getByText('#2')).toBeInTheDocument();
       expect(screen.getByText('#3')).toBeInTheDocument();
-      expect(screen.getByText('Player1')).toBeInTheDocument();
-      expect(screen.getByText('Player2')).toBeInTheDocument();
-      expect(screen.getByText('Player3')).toBeInTheDocument();
+      // Use getAllByText to handle multiple elements with same text
+      const player1Elements = screen.getAllByText('Player1');
+      const player2Elements = screen.getAllByText('Player2');
+      const player3Elements = screen.getAllByText('Player3');
+      expect(player1Elements.length).toBeGreaterThan(0);
+      expect(player2Elements.length).toBeGreaterThan(0);
+      expect(player3Elements.length).toBeGreaterThan(0);
     });
 
     it('should highlight current player in performance list', () => {
@@ -361,7 +368,8 @@ describe('GameEndView', () => {
       // The highlighting is on the outer div that contains the player info
       const currentPlayerContainer = screen.getByText('CurrentPlayer (You)').closest('div');
       const highlightedContainer = currentPlayerContainer?.parentElement;
-      expect(highlightedContainer).toHaveClass('bg-blue-50', 'border', 'border-blue-200');
+      // Updated styling classes for current player highlighting
+      expect(highlightedContainer).toHaveClass('bg-blue-100', 'border-2', 'border-blue-300');
     });
 
     it('should show team color indicators', () => {
@@ -520,7 +528,9 @@ describe('GameEndView', () => {
 
       renderGameEndView(room, currentPlayer, gameEndData);
 
-      expect(screen.getByText('RedPlayer')).toBeInTheDocument();
+      // Use getAllByText to handle multiple elements with same text
+      const redPlayerElements = screen.getAllByText('RedPlayer');
+      expect(redPlayerElements.length).toBeGreaterThan(0);
       // GameEndView shows team rosters even with empty teams, so no "No players yet" text
     });
 
@@ -571,8 +581,8 @@ describe('GameEndView', () => {
 
       renderGameEndView(room, player, gameEndData);
 
-      // Should render board without winning highlights
-      const winningIndicators = document.querySelectorAll('.w-3.h-3.bg-green-400');
+      // Should render board without winning highlights - now using w-4 h-4
+      const winningIndicators = document.querySelectorAll('.w-4.h-4.bg-green-400');
       expect(winningIndicators).toHaveLength(0);
     });
   });
@@ -615,7 +625,8 @@ describe('GameEndView', () => {
 
       renderGameEndView(room, player, gameEndData);
 
-      const statsGrid = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2');
+      // Game stats now use lg:grid-cols-2 instead of md:grid-cols-2
+      const statsGrid = document.querySelector('.grid.grid-cols-1.lg\\:grid-cols-2');
       expect(statsGrid).toBeInTheDocument();
     });
 
@@ -626,7 +637,8 @@ describe('GameEndView', () => {
 
       renderGameEndView(room, player, gameEndData);
 
-      const actionButtons = document.querySelector('.flex.justify-center.gap-4');
+      // Action buttons now use gap-6 instead of gap-4
+      const actionButtons = document.querySelector('.flex.justify-center.gap-6');
       expect(actionButtons).toBeInTheDocument();
     });
   });

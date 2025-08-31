@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAppContext } from '../state/AppContext';
-import type { Team } from '../types';
+
 
 export function GameView() {
   const { state, castVote, leaveRoom } = useAppContext();
@@ -53,17 +53,7 @@ export function GameView() {
     return `${seconds}s`;
   };
 
-  const getCellColor = (cell: Team | null) => {
-    if (cell === 'red') return 'bg-red-500';
-    if (cell === 'yellow') return 'bg-yellow-500';
-    return 'bg-gray-100';
-  };
 
-  const getCellBorder = (cell: Team | null) => {
-    if (cell === 'red') return 'border-red-600';
-    if (cell === 'yellow') return 'border-yellow-600';
-    return 'border-gray-300';
-  };
 
   const handleColumnClick = async (column: number) => {
     if (!isMyTeamsTurn || hasVoted) return;
@@ -75,17 +65,9 @@ export function GameView() {
     }
   };
 
-  const isColumnValid = (column: number) => {
-    // Check if top row of column is empty
-    return game.board[0]?.[column] === null;
-  };
 
-  const getColumnHighlight = (column: number) => {
-    if (!isMyTeamsTurn) return '';
-    if (!isColumnValid(column)) return 'opacity-50 cursor-not-allowed';
-    if (hasVoted) return 'opacity-75 cursor-not-allowed';
-    return 'hover:bg-blue-100 cursor-pointer transition-colors';
-  };
+
+
 
   const redTeam = room.players.filter(p => p.team === 'red');
   const yellowTeam = room.players.filter(p => p.team === 'yellow');

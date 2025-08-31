@@ -10,8 +10,10 @@ export function DemoMode() {
     const newBoard = [...demoBoard];
     // Find the lowest empty row in the column
     for (let row = 5; row >= 0; row--) {
-      if (newBoard[row][column] === null) {
-        newBoard[row][column] = Math.random() > 0.5 ? 'red' : 'yellow';
+      if (newBoard[row]?.[column] === null) {
+        if (newBoard[row]) {
+          newBoard[row]![column] = Math.random() > 0.5 ? 'red' : 'yellow';
+        }
         break;
       }
     }
@@ -144,7 +146,7 @@ export function DemoMode() {
           {/* Connect 4 Board Frame */}
           <div className="bg-blue-700 rounded-2xl p-4 shadow-xl w-full">
             <div className="grid grid-cols-7 gap-4 w-full">
-              {demoBoard.map((row, rowIndex) =>
+              {demoBoard.map((_row, rowIndex) =>
                 [0, 1, 2, 3, 4, 5, 6].map(colIndex => (
                   <div
                     key={`${rowIndex}-${colIndex}`}
@@ -154,10 +156,10 @@ export function DemoMode() {
                     {/* Hole */}
                     <div className="w-full h-full rounded-full bg-blue-900 flex items-center justify-center">
                       {/* Token */}
-                      {demoBoard[rowIndex][colIndex] !== null && (
+                      {demoBoard[rowIndex]?.[colIndex] !== null && (
                         <div
                           className={`w-[85%] h-[85%] rounded-full shadow-md border-2
-                            ${demoBoard[rowIndex][colIndex] === 'red'
+                            ${demoBoard[rowIndex]?.[colIndex] === 'red'
                               ? 'bg-red-500 border-red-700'
                               : 'bg-yellow-400 border-yellow-600'
                             }`}

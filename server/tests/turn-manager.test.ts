@@ -243,7 +243,7 @@ describe('TurnManager', () => {
       // Mock the completion callback to track calls
       let completionCallbackCalled = false;
       let timeoutResult: any = null;
-      turnManager.setCompletionCallback('test-room', (roomCode: string, result: any) => {
+      turnManager.setCompletionCallback('test-room', (_roomCode: string, result: any) => {
         completionCallbackCalled = true;
         timeoutResult = result;
       });
@@ -262,7 +262,7 @@ describe('TurnManager', () => {
       clock.setTime(1000);
       
       let completionCallbackCallCount = 0;
-      turnManager.setCompletionCallback('test-room', (roomCode: string, result: any) => {
+      turnManager.setCompletionCallback('test-room', (_roomCode: string, _result: any) => {
         completionCallbackCallCount++;
       });
       
