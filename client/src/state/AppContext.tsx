@@ -172,9 +172,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       dispatch({ type: 'SET_CONNECTION_STATUS', status: 'disconnected' });
     });
 
-    socket.on('connect_error', () => {
+    socket.on('connect_error', (error) => {
       dispatch({ type: 'SET_CONNECTION_STATUS', status: 'disconnected' });
-      dispatch({ type: 'SET_ERROR', error: 'Failed to connect to server' });
+      dispatch({ type: 'SET_ERROR', error: `Failed to connect to server: ${error.message || 'Server unreachable'}` });
     });
 
     // Game events

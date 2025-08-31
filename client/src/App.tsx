@@ -10,13 +10,18 @@ import './index.css';
 function AppContent() {
   const { state } = useAppContext();
 
-  // Check if we're in demo mode (no server connection)
-  const isDemoMode = !state.room && !state.currentPlayer;
+  // Check if we're in demo mode (server connection failed)
+  const isDemoMode = state.connectionStatus === 'disconnected' && state.error && state.error.startsWith('Failed to connect to server');
 
   const renderCurrentView = () => {
-    // Show demo mode if no server connection
+    // Show demo mode only if server connection explicitly failed
     if (isDemoMode) {
       return <DemoMode />;
+    }
+    
+    // If still connecting, show the real client (it will handle connection state)
+    if (state.connectionStatus === 'connecting') {
+      return <HomePage />;
     }
 
     switch (state.currentView) {
