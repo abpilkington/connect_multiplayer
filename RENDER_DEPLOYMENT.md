@@ -3,6 +3,7 @@
 ## **Prerequisites**
 - ✅ All build issues fixed (COMPLETED)
 - ✅ Project builds successfully (COMPLETED)
+- ✅ Server TypeScript configuration fixed (COMPLETED)
 - ✅ Render account created
 
 ## **Step 1: Create Render Services**
@@ -28,6 +29,8 @@
    - **Build Command**: `npm run build`
    - **Start Command**: `npm start`
    - **Auto-Deploy**: ✅ Enabled
+
+**Note**: The server build now uses a separate TypeScript configuration (`tsconfig.build.json`) that excludes test files and only builds production source code.
 
 ## **Step 2: Configure Environment Variables**
 
@@ -78,6 +81,7 @@ constructor() {
 1. **Build Fails**
    - Check that all TypeScript errors are fixed
    - Ensure `npm run build` works locally
+   - **Server Build Issues**: If you see errors about missing type definitions or test files being included, the build configuration has been fixed in the latest code
 
 2. **Client Can't Connect to Server**
    - Verify `VITE_SERVER_URL` is correct
@@ -88,6 +92,10 @@ constructor() {
    - Check environment variables are set correctly
    - Verify `PORT` is set to `10000`
    - Check server logs in Render dashboard
+
+4. **TypeScript Compilation Errors**
+   - **Missing @types**: The server now includes `@types/express` and `@types/bcrypt`
+   - **Test Files in Build**: Fixed with `tsconfig.build.json` that excludes test files
 
 ### **Check Server Logs:**
 1. Go to your server service in Render
